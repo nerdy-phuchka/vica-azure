@@ -1,0 +1,13 @@
+{
+  "version":"SYNTHETIC-DEMO-ONLY-v1",
+  "status":"demo",
+  "source":"Synthetic walkthrough; these are not bank or SAMA thresholds",
+  "approved_by":"DEMO ONLY",
+  "rules":[
+    {"id":"DEMO-001","status":"active","field":"revenue","operator":"gt","value":"0","hard_stop":true,"description":"Synthetic positive revenue check","source_page":"Demo 1"},
+    {"id":"DEMO-002","status":"active","field":"dscr","operator":"gte","value":"1.2","hard_stop":false,"description":"Synthetic coverage check","source_page":"Demo 1"}
+  ],
+  "documents":["registration","financial_statements","bank_statement"],
+  "authorities":[{"subject":"demo-approver","max_amount":"1000000","can_override":false}],
+  "note":"Only permitted for cases explicitly marked synthetic. No credit rating or probability of default."
+}

@@ -1,0 +1,17 @@
+Group,Input,Source,Configuration status,Application use
+Policy,Original eligibility rules SME-EL-001 to SME-EL-010,Approved original policy,Pending confirmation,Rules engine and routing
+Policy,Conditional document checklist,Approved policy and products,Prototype baseline only,Document completeness
+Policy,Ratio formulas and thresholds,Approved methodology,Formulas documented thresholds pending,Financial analysis
+Policy,Delegated authorities and exceptions,Approved delegation matrix,Empty for real cases,Human approval and exception checks
+Policy,Approved scorecard and missing-data treatment,Model owner,Not supplied,No fabricated rating
+Policy,Credit Note Credit Report Field Visit templates,Approved templates,Prototype templates supplied,Report generation
+Policy,SLA and escalation timings,Approved procedures,Not confirmed task dates available,Workflow monitoring
+Borrower,Legal identity and ownership,Registration constitutional and ownership documents,Supported with review,Entity and authority assessment
+Borrower,Financial statements and management accounts,Uploaded English Arabic or mixed documents,Supported with review,Financial spread and ratios
+Borrower,Bank statements and schedules,PDF OCR or CSV XLSX schedule,OCR plus reviewed schedules,Banking analysis
+Borrower,Cash available and annual debt service,Reviewed cash flow and proposed structure,Human confirmation required,Repayment capacity
+Integration,LOS API and document contract,LOS vendor,Simulator and API adapter supplied,Live connectivity pending
+Integration,Bureau registry and screening access,Authorised providers,Not supplied,Reviewer evidence and clearance
+Azure,Tenant subscription and permitted geography,Organisation cloud owner,Not supplied,Hosting and AI processing
+Azure,Approved model version and quota,Azure AI owner,Deployment parameters required,Real AI extraction and drafting
+Security,Retention recovery entitlements and pilot approval,Organisation control owners,Defaults documented signoff needed,Real-data pilot acceptance

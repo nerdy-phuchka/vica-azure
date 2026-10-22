@@ -1,0 +1,1 @@
+"""Virtual Credit Analyst prototype."""

@@ -1,0 +1,21 @@
+{
+  "version":"photographs-draft-2026-10-22",
+  "status":"pending_confirmation",
+  "source":"User-supplied photographs 55929–55936; original policy required",
+  "approved_by":null,
+  "rules":[
+    {"id":"SME-EL-001","status":"pending","description":"Original eligibility wording and threshold not confirmed"},
+    {"id":"SME-EL-002","status":"pending","description":"Original eligibility wording and threshold not confirmed"},
+    {"id":"SME-EL-003","status":"pending","description":"Original eligibility wording and threshold not confirmed"},
+    {"id":"SME-EL-004","status":"pending","description":"Original eligibility wording and threshold not confirmed"},
+    {"id":"SME-EL-005","status":"pending","description":"Original eligibility wording and threshold not confirmed"},
+    {"id":"SME-EL-006","status":"pending","description":"Original eligibility wording and threshold not confirmed"},
+    {"id":"SME-EL-007","status":"pending","description":"Original eligibility wording and threshold not confirmed"},
+    {"id":"SME-EL-008","status":"pending","description":"Original eligibility wording and threshold not confirmed"},
+    {"id":"SME-EL-009","status":"pending","description":"Original eligibility wording and threshold not confirmed"},
+    {"id":"SME-EL-010","status":"pending","description":"Original eligibility wording and threshold not confirmed"}
+  ],
+  "documents":["registration","financial_statements","bank_statement"],
+  "authorities":[],
+  "note":"Document list is a prototype baseline, not a confirmed policy checklist. No real approval permitted."
+}
