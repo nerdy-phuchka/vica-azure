@@ -1,0 +1,39 @@
+trigger: none
+pool:
+  vmImage: ubuntu-latest
+variables:
+  pythonVersion: '3.12'
+stages:
+- stage: Validate
+  jobs:
+  - job: Test
+    steps:
+    - task: UsePythonVersion@0
+      inputs: {versionSpec: '$(pythonVersion)'}
+    - script: pip install -r 03_Backend/requirements.txt
+      displayName: Install backend dependencies
+    - script: python -m pytest 07_Tests -q --junitxml=10_Verification/junit.xml
+      displayName: Test calculations, workflow and access control
+    - task: NodeTool@0
+      inputs: {versionSpec: '22.x'}
+    - script: npm install && npm run typecheck && npm run build
+      workingDirectory: 04_Frontend
+      env:
+        NEXT_PUBLIC_AUTH_MODE: entra
+      displayName: Build frontend
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: '$(AzureServiceConnection)'
+        scriptType: bash
+        scriptLocation: inlineScript
+        inlineScript: |
+          az bicep build --file 06_Azure_Infrastructure/01_foundation.bicep
+          az bicep build --file 06_Azure_Infrastructure/02_applications.bicep
+          az bicep build --file 06_Azure_Infrastructure/03_gateway.bicep
+    - task: PublishTestResults@2
+      condition: always()
+      inputs: {testResultsFormat: JUnit, testResultsFiles: '10_Verification/junit.xml'}
+    - task: PublishPipelineArtifact@1
+      inputs: {targetPath: '$(Build.SourcesDirectory)', artifact: vca-validated-source}
+# Deploy through 04_deploy.ps1 using your approved Azure service connection and environment gate.
+# This pipeline intentionally has no implicit chargeable deployment trigger.
