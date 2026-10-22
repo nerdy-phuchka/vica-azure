@@ -1,0 +1,54 @@
+name: virtual-credit-analyst
+x-backend: &backend
+  build:
+    context: .
+    dockerfile: 03_Backend/Dockerfile
+  env_file: .env
+  environment:
+    APP_MODE: local
+    DATABASE_URL: sqlite:////app/data/vca.db
+    LOCAL_STORAGE_PATH: /app/data/files
+    POLICY_FILE: /configuration/policy.pending.json
+    LOS_CALLBACK_URL: http://los-simulator:8090/events
+  volumes:
+    - vca-data:/app/data
+  restart: unless-stopped
+services:
+  api:
+    <<: *backend
+    ports: ["127.0.0.1:8000:8000"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+  worker:
+    <<: *backend
+    command: ["python", "-m", "app.worker"]
+    depends_on:
+      api: {condition: service_healthy}
+  web:
+    build:
+      context: .
+      dockerfile: 04_Frontend/Dockerfile
+      args:
+        NEXT_PUBLIC_AUTH_MODE: local
+    environment:
+      API_INTERNAL_URL: http://api:8000
+      NEXT_PUBLIC_AUTH_MODE: local
+      DEV_PROXY_SECRET: ${DEV_PROXY_SECRET}
+    ports: ["127.0.0.1:3000:3000"]
+    depends_on:
+      api: {condition: service_healthy}
+  los-simulator:
+    build:
+      context: .
+      dockerfile: 05_LOS_Integration/Dockerfile
+    environment:
+      LOS_CALLBACK_SECRET: ${LOS_CALLBACK_SECRET}
+      LOS_DATABASE: /data/los.db
+    volumes: ["los-data:/data"]
+    ports: ["127.0.0.1:8090:8090"]
+volumes:
+  vca-data:
+  los-data:

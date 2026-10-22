@@ -1,0 +1,15 @@
+test_actual_arabic_statement_parser (__main__.OfflineChecks.test_actual_arabic_statement_parser) ... ok
+test_actual_policy_evaluator (__main__.OfflineChecks.test_actual_policy_evaluator) ... ok
+test_arabic_numbers (__main__.OfflineChecks.test_arabic_numbers) ... ok
+test_invalid_numeric (__main__.OfflineChecks.test_invalid_numeric) ... ok
+test_json_parses (__main__.OfflineChecks.test_json_parses) ... ok
+test_missing_zero_and_negative (__main__.OfflineChecks.test_missing_zero_and_negative) ... ok
+test_policy_separation (__main__.OfflineChecks.test_policy_separation) ... ok
+test_python_sources_parse (__main__.OfflineChecks.test_python_sources_parse) ... ok
+test_repayment_calculation (__main__.OfflineChecks.test_repayment_calculation) ... ok
+test_schedule_principal_conservation (__main__.OfflineChecks.test_schedule_principal_conservation) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.048s
+
+OK

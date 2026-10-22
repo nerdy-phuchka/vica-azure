@@ -1,0 +1,16 @@
+{
+  "passed": [
+    "All six context-specific configuration panels",
+    "Draft save is separate from apply; profile fields update",
+    "Document language validation and checklist requirements",
+    "Financial periods, units and selected ratios",
+    "Stress validation, scenario defaults and recalculation",
+    "Memo selection, renaming, ordering and preservation of edits",
+    "Decision roles, referral limit, clearances and conditions",
+    "Configuration and analyst text persist after reload",
+    "Policy Configuration directory opens every section",
+    "Portfolio template applies to another borrower",
+    "Configuration forms fit 1024, 360 and 320 pixel widths"
+  ],
+  "errors": []
+}

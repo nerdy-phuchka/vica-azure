@@ -1,0 +1,50 @@
+/* Run with Playwright installed. Optional VICA_CHROME and VICA_PLAYWRIGHT_MODULE. */
+const fs=require('node:fs');
+const path=require('node:path');
+const {pathToFileURL}=require('node:url');
+const {chromium}=require(process.env.VICA_PLAYWRIGHT_MODULE||'playwright');
+const assert=require('node:assert/strict');
+(async()=>{
+  const packageRoot=path.resolve(__dirname,'..');
+  const browser=await chromium.launch({headless:true,...(process.env.VICA_CHROME?{executablePath:process.env.VICA_CHROME}:{})});
+  const page=await browser.newPage({viewport:{width:1360,height:1000}});
+  const errors=[];page.on('pageerror',e=>errors.push(e.message));
+  await page.goto(pathToFileURL(path.join(packageRoot,'04_Frontend/public/vica-review.html')).href);
+  await page.evaluate(()=>localStorage.clear());await page.reload();
+  const tab=async key=>page.locator('.vc-cockpit-tabs [data-cockpit="'+key+'"]').click();
+  const configure=async key=>{await tab(key);await page.locator('#vc-configure-section').click();};
+  const field=key=>page.locator('#vc-config-form [data-cfg-path="'+key+'"]');
+  const apply=async()=>page.locator('[data-cfg-action="apply"]').click();
+  const close=async()=>page.locator('[data-cfg-action="close"]').click();
+  const passed=[];
+  for(const key of ['overview','documents','financials','risk','memo','decision']){
+    await configure(key);assert(await page.locator('#vc-config-title').isVisible());assert(await field(key==='memo'?'sections.0.title':key==='overview'?'checkpoint':key==='documents'?'english':key==='financials'?'unit':key==='risk'?'cashDefault':'limit').isVisible());await close();
+  }passed.push('All six context-specific configuration panels');
+  await configure('overview');await field('metrics.revenue').uncheck();await field('checkpoint').fill('Review sponsor support — مراجعة دعم المساهمين');
+  await page.locator('[data-cfg-action="save"]').click();await close();assert.equal(await page.locator('#vc-borrower-kpis .vc-stat').count(),4);
+  await page.locator('#vc-configure-section').click();assert.equal(await field('metrics.revenue').isChecked(),false);await apply();
+  assert.equal(await page.locator('#vc-borrower-kpis .vc-stat').count(),3);assert.match(await page.locator('#vc-borrower-readiness').innerText(),/مراجعة/);passed.push('Draft save is separate from apply; profile fields update');
+  await configure('documents');await field('english').uncheck();await field('arabic').uncheck();await apply();assert.match(await page.locator('#vc-config-error').innerText(),/at least one document language/);
+  await field('arabic').check();await field('documents.0.required').uncheck();await field('documents.0.age').fill('6');await apply();
+  assert.match(await page.locator('#vc-evidence-list').innerText(),/Accepted languages: Arabic/);assert.match(await page.locator('#vc-evidence-list .vc-document').first().innerText(),/Optional · maximum age 6 months/);passed.push('Document language validation and checklist requirements');
+  await configure('financials');await field('years').selectOption('1');await field('unit').selectOption('thousands');await field('metrics.ebitda').uncheck();await field('metrics.leverage').check();await apply();
+  assert.equal(await page.locator('[data-cockpit-panel="financials"] thead th').count(),3);assert.match(await page.locator('#vc-spread-rows').innerText(),/54,100.00/);assert.doesNotMatch(await page.locator('#vc-spread-rows').innerText(),/EBITDA/);assert.match(await page.locator('#vc-spread-rows').innerText(),/Debt \/ equity/);passed.push('Financial periods, units and selected ratios');
+  await configure('risk');await field('cashDefault').fill('25');await field('cashMax').fill('20');await apply();assert.match(await page.locator('#vc-config-error').innerText(),/must not exceed/);
+  await field('cashMax').fill('60');await field('serviceDefault').fill('3');await field('customRisk').fill('Supplier disruption');await field('customMitigant').fill('Obtain alternative supplier commitments.');await apply();
+  assert.equal(await page.locator('#vc-cash-cut').getAttribute('max'),'60');assert.equal(await page.locator('#vc-cash-cut').inputValue(),'25');assert.match(await page.locator('#vc-stressed-dscr').innerText(),/^1\.18[x×]$/);assert.match(await page.locator('#vc-risk-register').innerText(),/Supplier disruption/);passed.push('Stress validation, scenario defaults and recalculation');
+  await tab('memo');const prior=await page.locator('#vc-memo-text').inputValue();await page.locator('#vc-memo-text').fill(prior+'\nAnalyst retained note: مراجعة يدوية.');await page.locator('#vc-save-memo').click();
+  await page.locator('#vc-configure-section').click();await field('sections.19.included').uncheck();await field('sections.0.title').fill('Custom executive assessment');await page.locator('[data-cfg-index="0"][data-cfg-move="1"]').click();await apply();
+  assert.equal(await page.locator('#vc-memo-outline button').count(),19);assert.match(await page.locator('#vc-memo-outline button').nth(1).innerText(),/Custom executive/);await page.locator('[data-memo-section="1"]').click();assert.match(await page.locator('#vc-memo-text').inputValue(),/Analyst retained note: مراجعة يدوية/);
+  await page.locator('#vc-configure-section').click();await field('sections.19.included').check();await apply();assert.equal(await page.locator('#vc-memo-outline button').count(),20);passed.push('Memo selection, renaming, ordering and preservation of edits');
+  await configure('decision');await field('limit').fill('20000000');await field('reviewer').fill('Regional credit reviewer');await field('clearances.valuation').check();await field('conditions').fill('Confirm sponsor undertaking.\nComplete independent review.');await apply();
+  assert.match(await page.locator('#vc-configured-decision').innerText(),/Regional credit reviewer/);assert.match(await page.locator('#vc-configured-decision').innerText(),/Delegated authority verification/);assert.match(await page.locator('#vc-configured-decision').innerText(),/Independent valuation/);assert.match(await page.locator('#vc-configured-decision').innerText(),/Confirm sponsor undertaking/);passed.push('Decision roles, referral limit, clearances and conditions');
+  await page.reload();assert.equal(await page.locator('#vc-borrower-kpis .vc-stat').count(),3);await tab('memo');assert.equal(await page.locator('#vc-memo-outline button').count(),20);await page.locator('[data-memo-section="1"]').click();assert.match(await page.locator('#vc-memo-text').inputValue(),/Analyst retained note/);passed.push('Configuration and analyst text persist after reload');
+  await page.locator('.vc-nav [data-nav="policy"]').click();await page.locator('[data-policy-tab="sections"]').click();assert.equal(await page.locator('#vc-section-directory [data-configure-section]').count(),6);await page.locator('[data-configure-section="risk"]').click();assert.match(await page.locator('#vc-config-title').innerText(),/Risk & stress/);await close();passed.push('Policy Configuration directory opens every section');
+  await page.locator('.vc-nav [data-nav="queue"]').click();await page.locator('[data-borrower="DEMO-002"]').first().click();await tab('risk');assert.equal(await page.locator('#vc-cash-cut').inputValue(),'25');assert.equal(await page.locator('#vc-service-rise').inputValue(),'3');passed.push('Portfolio template applies to another borrower');
+  const output=path.resolve(process.env.VICA_QA_OUTPUT||path.join(packageRoot,'..','outputs'));fs.mkdirSync(output,{recursive:true});
+  await tab('documents');await page.screenshot({path:path.join(output,'vica-configurable-documents.png'),fullPage:true});await configure('risk');await page.screenshot({path:path.join(output,'vica-configurable-settings.png'),fullPage:true});
+  for(const width of [1024,360,320]){await page.setViewportSize({width,height:900});for(const key of ['overview','documents','financials','risk','memo','decision']){await configure(key);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'Overflow in '+key+' at '+width);await close();}}
+  passed.push('Configuration forms fit 1024, 360 and 320 pixel widths');
+  await page.screenshot({path:path.join(output,'vica-configurable-mobile.png'),fullPage:true});assert.deepEqual(errors,[]);
+  const result={passed,errors};fs.writeFileSync(path.join(packageRoot,'10_Verification/frontend-configuration-results.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result));await browser.close();
+})().catch(error=>{console.error(error.stack);process.exit(1);});

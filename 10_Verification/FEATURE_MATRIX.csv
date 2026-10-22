@@ -1,0 +1,17 @@
+Feature,Implementation,Verification state,External dependency
+Ordered full source package,Numbered folders and entry guide,Inspected,None
+English Arabic document upload,File validation and persistent upload routes,Source syntax checked,Runtime dependencies
+Scanned document OCR,Azure Document Intelligence adapter,Not live tested,Azure identity network quota
+Structured field interpretation,Azure OpenAI schema and quote validation,Not live tested,Supported Azure deployment
+Manual review,Document and canonical field review APIs and interface,Source syntax checked,Full runtime suite pending
+Transaction parsing,CSV XLSX parser and review,Arabic CSV parser exercised,XLSX runtime suite pending
+Financial metrics,Decimal calculations and missing-value handling,Offline tests passed,None
+Repayment schedule,Decimal level payment schedule,Principal conservation tests passed,None
+Policy evaluation,Versioned rules and synthetic separation,Offline evaluator tests passed,Approved real policy missing
+Credit workflow,Independent review authority and conditions,Automated integration tests supplied not run,Runtime dependencies
+Case questions,Authorised evidence retrieval and source display,Not live tested,Azure AI optional Search
+Reports,Word and HTML exports reviewed narrative,Source syntax checked,Runtime package tests pending
+LOS,Versioned API idempotency event outbox and HMAC simulator,Integration tests supplied not run,Live LOS contract missing
+Azure infrastructure,Bicep private data services and Container Apps,Not compiled or deployed,Azure CLI subscription and approved region
+Frontend,Next.js workspace and bilingual source support,Source delivered build not run,NPM download blocked
+Security,Entra RBAC case access scanning and private endpoints,Source controls inspected not independently assured,Identity and security acceptance pending

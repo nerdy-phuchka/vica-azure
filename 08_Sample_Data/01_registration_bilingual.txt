@@ -1,0 +1,13 @@
+SYNTHETIC DEMONSTRATION DOCUMENT — NOT A REAL REGISTRATION
+مستند تجريبي اصطناعي — ليس سجلاً تجارياً حقيقياً
+
+Legal name / الاسم القانوني: Namaa Demo Trading LLC / شركة نماء التجريبية للتجارة
+Commercial registration / السجل التجاري: DEMO-123456
+Incorporation date / تاريخ التأسيس: 2020-01-15
+Licence expiry / انتهاء الترخيص: 2030-12-31
+Business activity / النشاط: Wholesale trading / تجارة الجملة
+Owner / المالك: Synthetic Owner / مالك تجريبي — 100%
+Authorised signatory / المفوض بالتوقيع: Synthetic Signatory / مفوض تجريبي
+
+This document exists only to demonstrate extraction, evidence linking and manual review.
+هذا المستند مخصص لاختبار استخراج البيانات والمراجعة البشرية فقط.

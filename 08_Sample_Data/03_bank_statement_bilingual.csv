@@ -1,0 +1,7 @@
+date,description,debit,credit,balance
+2025-01-01,Opening owner injection / إيداع المالك,0,100000,100000
+2025-01-03,Customer receipt / تحصيل عميل,0,50000,150000
+2025-01-05,Supplier payment / دفعة مورد,30000,0,120000
+2025-01-08,Loan proceeds / متحصلات قرض,0,40000,160000
+2025-01-12,Debt repayment / سداد دين,10000,0,150000
+2025-01-15,Internal transfer / تحويل داخلي,20000,0,130000

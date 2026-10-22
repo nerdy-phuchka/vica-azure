@@ -1,0 +1,28 @@
+SYNTHETIC UNAUDITED TEST FIGURES — NOT A REAL BORROWER
+بيانات تجريبية اصطناعية — ليست بيانات عميل حقيقي
+Entity: Namaa Demo Trading LLC / شركة نماء التجريبية للتجارة
+Reporting period / الفترة: FY 2025
+Currency / العملة: SAR / ريال سعودي
+Units: individual SAR, not thousands / بالريال وليس بالآلاف
+Revenue / الإيرادات: 2000000
+Prior-year revenue / إيرادات السنة السابقة: 1600000
+Gross profit / مجمل الربح: 600000
+Net profit / صافي الربح: 250000
+Current assets / الأصول المتداولة: 900000
+Inventory / المخزون: 200000
+Current liabilities / الخصوم المتداولة: 400000
+Total debt / إجمالي الدين: 500000
+Total liabilities / إجمالي الالتزامات: 700000
+Equity / حقوق الملكية: 800000
+EBIT / الربح قبل الفوائد والضرائب: 300000
+Interest expense / مصروف الفوائد: 50000
+Cost of sales / تكلفة المبيعات: 1400000
+Average inventory / متوسط المخزون: 200000
+Average receivables / متوسط الذمم المدينة: 200000
+Credit sales / المبيعات الآجلة: 1500000
+
+Reviewed cash flow assumptions for demonstration (not extracted from profit):
+Cash available for annual debt service / النقد المتاح لخدمة الدين السنوية: 300000
+Existing annual debt service / خدمة الدين الحالية السنوية: 100000
+Proposed annual debt service / خدمة الدين المقترحة السنوية: 100000
+Audit opinion: No audit; synthetic fixture. Not a substitute for approved documentation requirements.
