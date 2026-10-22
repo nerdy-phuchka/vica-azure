@@ -1,0 +1,9 @@
+{
+  "approved_attachment": "vica-review(1).html",
+  "approved_file_id": "file_00000000d98c81f4a20c68e2d274724d",
+  "attachment_size_bytes": 141188,
+  "verification": "Attachment raw text matches retained HTML after line-ending and trailing-newline normalisation.",
+  "retained_file_sha256": "59b1e47f1d9c511f43163caae6c4f9686d92981c8154f0148cb85a9857bbc9a3",
+  "release_entry": "04_Frontend/public/vica-review.html",
+  "unchanged_reference": "01_Product_and_Design/approved-frontend.html"
+}
