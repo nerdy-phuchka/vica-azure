@@ -1,0 +1,20 @@
+[
+  {
+    "filename": "ViCA-Azure-Full-Package.zip",
+    "source_files": 109,
+    "bytes": 428782,
+    "sha256": "368c50bad942cec9b8572588c7d810ab52a777aaa397e9e35f300bbccd34ac96"
+  },
+  {
+    "filename": "ViCA-Frontend.zip",
+    "source_files": 36,
+    "bytes": 247661,
+    "sha256": "0ebe77b38a555b5211f31e5183c060cca1d861bd4831c8f483b2f88dfc16320e"
+  },
+  {
+    "filename": "ViCA-Backend.zip",
+    "source_files": 25,
+    "bytes": 37834,
+    "sha256": "0bcaa78ba95e0b6b0fe1455ae1c875b41fe2364d1c0b470ecb0acfdca0e09fd4"
+  }
+]

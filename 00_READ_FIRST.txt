@@ -1,0 +1,34 @@
+ViCA - Azure deployment delivery
+Saved: 23 October 2026 (Dubai)
+
+FOLDER ORDER
+01_Application_Source: complete application source, configuration templates,
+  bilingual sample documents, LOS integration, Azure infrastructure and guides.
+02_Packages: full application ZIP and separate frontend/backend ZIPs.
+
+START HERE
+Visual preview: 01_Application_Source/04_Frontend/public/approved-preview.html
+Frontend source: 01_Application_Source/04_Frontend
+Backend source: 01_Application_Source/03_Backend
+Azure guide: 01_Application_Source/09_Operations_and_Guides/02_AZURE_DEPLOYMENT.md
+Deployment script: 01_Application_Source/06_Azure_Infrastructure/04_deploy.ps1
+
+For Azure deployment, use the full application source or extract the full ZIP.
+Run commands from the extracted application root so the numbered folders keep
+their relative paths. Configure the Azure subscription, region/model, Entra
+registrations and roles, and the bank's approved credit policy as documented.
+UI policy drafts do not activate the server-side lending policy.
+
+The standalone HTML preview uses demonstration data. The connected frontend
+runs through the Next.js application and requires the authenticated backend.
+
+VERIFICATION STATUS
+All source files were copied byte-for-byte. ZIP entries were read back and
+checked against their source hashes. This is file integrity verification.
+Earlier work recorded 18 passing offline checks. Full browser, dependency,
+container, Bicep and Azure deployment checks remain pending. Existing files in
+10_Verification and earlier version references describe the prior build and
+must not be read as verification of the updated connected frontend.
+
+No credentials, local databases, uploaded borrower files, dependency folders,
+or build caches are included. The .env.example template is included.
